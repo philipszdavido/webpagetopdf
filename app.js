@@ -19,6 +19,10 @@ app.get("/", (request, response) => {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get("/style.css", (request, response) => {
+    response.sendFile(path.join(__dirname, 'style.css'));
+});
+
 app.get('*', function(req, res) {
   res.sendFile(path.resolve(__dirname, 'index.html'));
 });
@@ -27,9 +31,9 @@ app.use('/static',express.static(path.join(__dirname,'static')))
 app.use('/assets',express.static(path.join(__dirname,'assets')))
 
 app.post('/api/generatePDF', (req, res, next) => {
-    const { data } = req.body
+    const { url } = req.body
 
-    getPdf(data).then(pdf => {
+    getPdf(url).then(pdf => {
       res.send({result: pdf })
       next()
      })

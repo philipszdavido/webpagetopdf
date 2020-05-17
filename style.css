@@ -90,14 +90,14 @@ input:focus {
 }
 
 .info {
-    padding: 12px;
+    padding: 2px 5px;
     border: 1px solid #003f63;
     border-radius: 3px;
     background: #3c8dbc;
     color: white;
-    box-shadow: 0 3px 5px black;
+    //box-shadow: 0 3px 5px black;
     
-    width: 500px;
+    //width: 500px;
     z-index: 1000;
     position: absolute;
 
@@ -106,7 +106,7 @@ input:focus {
 }
 
 .info h3 {
-    margin: 7px 0 6px 0;
+    margin: 3px 0 2px 0;
 }
 
 .info-danger {
@@ -120,9 +120,9 @@ input:focus {
 
 @media(max-width: 700px) {
     .info {
-        width: 83%;
-        margin-left: 10%;
-        margin-right: 10%;
+        
+        margin-left: 2px;
+        margin-right: 2px; top: 0; left: auto; 
     }
 
     .wrapper {

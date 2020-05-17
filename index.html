@@ -61,11 +61,16 @@
             setTimeout(() => {
                 info.classList.add("close")
                 info.classList.remove("info-danger")
-            }, 1000)
+            }, 2000)
         } else
-            fetch("api/generatePDF", { data: webpageUrl.value } ).then( res => {
+            fetch("api/generatePDF", { body: { url: webpageUrl.value }, method: "POST" } ).then( res => {
                 showLoading(false)
                 const { result } = res.data
+                const blob = new Blob([result], {type: 'application/pdf'})
+                const link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = `your-file-name.pdf`
+                link.click()
             }).catch(err => {
                 showLoading(false)
 
@@ -80,7 +85,7 @@
                 setTimeout(() => {
                     info.classList.add("close")
                     info.classList.remove("info-danger")
-                }, 1000)
+                }, 2000)
             })
 
         disableButton(false)
