@@ -1,7 +1,5 @@
 /** require dependencies */
 const express = require("express")
-const routes = require('./routes/')
-const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
@@ -9,18 +7,6 @@ const path = require('path')
 const puppeteer = require("puppeteer")
 
 const app = express()
-const router = express.Router()
-const url = process.env.MONGODB_URI || "mongodb://localhost:27017/medium"
-
-
-/** connect to MongoDB datastore */
-try {
-    /*mongoose.connect(url, {
-        //useMongoClient: true
-    })*/    
-} catch (error) {
-    
-}
 
 let port = process.env.PORT || 5000
 
@@ -31,6 +17,10 @@ app.use(helmet())
 
 app.get("/", (request, response) => {
     response.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
 app.use('/static',express.static(path.join(__dirname,'static')))
@@ -47,10 +37,6 @@ app.post('/api/generatePDF', (req, res, next) => {
     res.send({result: pdf })
     next()
 })
-
-/*app.get('*', function(req, res) {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
-});*/
 
 
 /** start server */
