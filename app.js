@@ -29,15 +29,21 @@ app.use('/assets',express.static(path.join(__dirname,'assets')))
 app.post('/api/generatePDF', (req, res, next) => {
     const { data } = req.body
 
-    const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage();
-    await page.goto(data, { waitUntil: 'networkidle0' });
-    const pdf = await page.pdf({ format: 'A4' });
-    await browser.close();
-    res.send({result: pdf })
-    next()
+    getPdf(data).then(pdf => {
+      res.send({result: pdf })
+      next()
+     })
+    
 })
 
+async function getPdf(url) {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle0' });
+    const pdf = await page.pdf({ format: 'A4' });
+    await browser.close();
+    return pdf;
+}
 
 /** start server */
 app.listen(port, () => {
