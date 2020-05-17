@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Generate PDF from webpages">
+<meta name="description" content="API for generating PDF from webpages using Puppeteer.js">
+<meta name="image" content="">
+<meta name="site" content="">
+
+<link type="text/css" rel="stylesheet" href="./anim.css" />
+<link type="text/css" rel="stylesheet" href="./style.css" />
+
+<title>Webpage to PDF</title>
+
+<style>
+</style>
+
+<body>
+    <header>
+        <div class="title-bar"><h2>Webpage to PDF</h2></div>
+    </header>
+    <div class="container">
+        <div class="info close" id="info">
+            <h3>Info</h3>
+        </div>
+        <div class="wrapper">
+            <div class="div-input" style="">
+                <input id="webpageUrl" type="text" placeholder="Type your webpage URL" />
+            </div>
+            <div class="div-button">
+                <button id="webpageButton" onclick="return generatePDF(event)">
+                    PDF
+                </button>
+            </div>                
+        </div>
+    </div>
+</body>
+
+<script>
+
+    webpageUrl.addEventListener("keydown", (evt) => {
+        if(evt.key == "Enter")
+            generatePDF(evt)
+    })
+
+    function generatePDF(evt) {
+        evt.preventDefault()
+
+        showLoading(true)
+        disableButton(true)
+
+        if(webpageUrl.value.length === 0) {
+            showLoading(false)
+            info.innerHTML = `
+                <h3>Error</h3>
+                Please, Type in the webpage URL.
+            `
+            info.classList.add("info-danger")
+            info.classList.remove("close")
+
+            setTimeout(() => {
+                info.classList.add("close")
+                info.classList.remove("info-danger")
+            }, 1000)
+        } else
+            fetch("api/generatePDF", { data: webpageUrl.value } ).then( res => {
+                showLoading(false)
+                const { result } = res.data
+            }).catch(err => {
+                showLoading(false)
+
+                // err
+
+                info.innerHTML = `
+                    <h3>Error</h3>
+                    ${err}
+                `
+                info.classList.add("info-danger")
+                info.classList.remove("close")
+                setTimeout(() => {
+                    info.classList.add("close")
+                    info.classList.remove("info-danger")
+                }, 1000)
+            })
+
+        disableButton(false)
+    }
+
+    function showLoading(show) {
+        if(show == true) {
+            webpageButton.innerHTML = "wait..."
+        } else {
+            webpageButton.innerHTML = "PDF"
+        }
+    }
+
+    function disableButton(disable) {
+        if(disable == true) {
+            webpageButton.classList.add("disable")
+        } else {
+            webpageButton.classList.remove("disable")
+        }
+    }
+</script>
+
+</html>
