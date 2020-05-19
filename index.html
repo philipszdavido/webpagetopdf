@@ -61,9 +61,9 @@
             setTimeout(() => {
                 info.classList.add("close")
                 info.classList.remove("info-danger")
-            }, 2000)
+            }, 3000)
         } else
-            fetch("api/generatePDF", { body: { url: webpageUrl.value }, method: "POST" } ).then( res => {
+            fetch("api/generatePDF", { body: JSON.stringify({ url: webpageUrl.value }), method: "POST" } ).then( res => {
                 showLoading(false)
                 const { result } = res.data
                 const blob = new Blob([result], {type: 'application/pdf'})
@@ -85,7 +85,7 @@
                 setTimeout(() => {
                     info.classList.add("close")
                     info.classList.remove("info-danger")
-                }, 2000)
+                }, 3000)
             })
 
         disableButton(false)
