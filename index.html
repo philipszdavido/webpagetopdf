@@ -101,9 +101,9 @@
 
     function disableButton(disable) {
         if(disable == true) {
-            webpageButton.classList.add("disable")
+            webpageButton.setAttribute("disable", true)
         } else {
-            webpageButton.classList.remove("disable")
+            webpageButton.removeAttribute("disable")
         }
     }
 </script>
