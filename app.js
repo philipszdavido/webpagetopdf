@@ -33,11 +33,9 @@ app.use('/assets',express.static(path.join(__dirname,'assets')))
 app.post('/api/generatePDF', (req, res, next) => {
     const { url } = req.body
 
-    getPdf(url).then(pdf => {
-      res.send({result: pdf })
-      next()
-     })
-    
+    var pdf = getPdf(url)
+    res.send({result: pdf })
+    next()    
 })
 
 async function getPdf(url) {

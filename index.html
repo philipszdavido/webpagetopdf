@@ -7,6 +7,8 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<meta name="theme-color" content="aliceblue">
+
 <link type="text/css" rel="stylesheet" href="./anim.css" />
 <link type="text/css" rel="stylesheet" href="./style.css" />
 
@@ -35,7 +37,7 @@
         </div>
     </div>
 </body>
-
+<script src="./axios/axios.min.js"></script>
 <script>
 
     webpageUrl.addEventListener("keydown", (evt) => {
@@ -63,7 +65,7 @@
                 info.classList.remove("info-danger")
             }, 3000)
         } else
-            fetch("api/generatePDF", { body: JSON.stringify({ url: webpageUrl.value }), method: "POST" } ).then( res => {
+            axios.post("api/generatePDF", { url: webpageUrl.value } ).then( res => {
                 showLoading(false)
                 const { result } = res.data
                 const blob = new Blob([result], {type: 'application/pdf'})

@@ -69,10 +69,10 @@ button {
 
 button:disabled {
     cursor: no-drop;
-    background: #808080d6;
-    border-color: #8080808f;
+    background: #ddd;
+    border-color: #ddd;
     opacity: 1.2;
-    color: #fff3;
+    color: white;
 }
 
 input {
